@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: cloudbees-io/checkout@v1
         with:
-          repository: TARGET_ORG/PROJECT_NAME-api
+          repository: cb-golden-demo-org/hacker-goldenmcp2-api
       - uses: cloudbees-days/setup-kubeconfig
         name: Set kubeconfig
         with:
@@ -31,13 +31,13 @@ jobs:
         uses: cloudbees-io/helm-install@v1
         with:
           chart-location: ${{ cloudbees.workspace }}/chart
-          release-name: PROJECT_NAME-api
+          release-name: hacker-goldenmcp2-api
           namespace: ${{ vars.namespace }}
           values: |
             image:
-              repository: ${{ vars.DOCKER_USER }}/PROJECT_NAME-api
+              repository: ${{ vars.DOCKER_USER }}/hacker-goldenmcp2-api
               tag: ${{ inputs.artifactVersion }}
-            hostname: PROJECT_NAME-api.${{ inputs.environment }}.preview.cb-demos.io
+            hostname: hacker-goldenmcp2-api.${{ inputs.environment }}.preview.cb-demos.io
       - name: Register deployed artifact
         uses: cloudbees-io/register-deployed-artifact@v2
         with:
@@ -47,6 +47,6 @@ jobs:
         with:
           content: |-
             ## Deployed environment
-            [Dev frontend](https://PROJECT_NAME-api.${{ inputs.environment }}.preview.cb-demos.io/)
-            Running PROJECT_NAME-api:${{ inputs.artifactVersion }}
+            [Dev frontend](https://hacker-goldenmcp2-api.${{ inputs.environment }}.preview.cb-demos.io/)
+            Running hacker-goldenmcp2-api:${{ inputs.artifactVersion }}
           format: MARKDOWN
